@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>agent-game</artifactId>
+        <groupId>org.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>agent-core</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-dep</artifactId>
+            <version>1.11.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.28.0-GA</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifestEntries>
+                            <Implementation-Title>${project.build.finalName}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Agent-Class>cc.ikey.game.agent.AgentMain</Agent-Class>
+                            <Premain-Class>cc.ikey.game.agent.AgentMain</Premain-Class>
+                            <Class-Path>${project.build.finalName}.jar</Class-Path>
+                            <Can-Redefine-Classes>false</Can-Redefine-Classes>
+                            <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                            <Can-Set-Native-Method-Prefix>false</Can-Set-Native-Method-Prefix>
+                        </manifestEntries>
+                    </archive>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>distribution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-shade-plugin</artifactId>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>package</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>shade</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <createSourcesJar>true</createSourcesJar>-->
+            <!--                            <shadeSourcesContent>true</shadeSourcesContent>-->
+            <!--                            <shadedArtifactAttached>false</shadedArtifactAttached>-->
+            <!--                            <relocations>-->
+            <!--                                <relocation>-->
+            <!--                                    <pattern>co.elastic.apm.agent.common</pattern>-->
+            <!--                                    <shadedPattern>co.elastic.apm.agent.premain.common</shadedPattern>-->
+            <!--                                </relocation>-->
+            <!--                            </relocations>-->
+            <!--                            <transformers>-->
+            <!--                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+            <!--                                    <manifestEntries>-->
+            <!--                                        <Premain-Class>cc.ikey.game.agent.AgentMain</Premain-Class>-->
+            <!--                                        <Agent-Class>cc.ikey.game.agent.AgentMain</Agent-Class>-->
+            <!--                                        <Can-Redefine-Classes>true</Can-Redefine-Classes>-->
+            <!--                                        <Can-Retransform-Classes>true</Can-Retransform-Classes>-->
+            <!--                                        <Can-Set-Native-Method-Prefix>true</Can-Set-Native-Method-Prefix>-->
+            <!--                                    </manifestEntries>-->
+            <!--                                </transformer>-->
+            <!--                            </transformers>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+        </plugins>
+    </build>
+</project>
