@@ -45,7 +45,6 @@
                             <Implementation-Version>${project.version}</Implementation-Version>
                             <Agent-Class>cc.ikey.game.agent.AgentMain</Agent-Class>
                             <Premain-Class>cc.ikey.game.agent.AgentMain</Premain-Class>
-                            <Class-Path>${project.build.finalName}.jar</Class-Path>
                             <Can-Redefine-Classes>false</Can-Redefine-Classes>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>
                             <Can-Set-Native-Method-Prefix>false</Can-Set-Native-Method-Prefix>

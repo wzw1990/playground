@@ -25,7 +25,7 @@
 
 package sun.misc;
 
-import cc.ikey.game.agent.classloader.JDKDelegateClassloader;
+import cc.ikey.jdk.patch.classloader.JDKDelegateClassloader;
 import sun.net.www.ParseUtil;
 import sun.security.util.SecurityConstants;
 
