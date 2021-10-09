@@ -1,4 +1,5 @@
 cc/ikey/game/agent/logging/AgentLoggerHandler.class
+cc/ikey/game/agent/AgentMain$FixedValueTransformer.class
 cc/ikey/game/agent/MyTransformer.class
 cc/ikey/game/agent/AgentMain.class
 cc/ikey/game/agent/logging/AgentLogger$Level.class
