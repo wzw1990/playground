@@ -55,7 +55,7 @@ import static net.bytebuddy.asm.Advice.ExceptionHandler.Default.PRINTING;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
 public class AgentBuddy {
-    private static AgentLogger LOGGER = AgentLogger.getLogger(AgentBuddy.class);
+    private static final AgentLogger LOGGER = AgentLogger.getLogger(AgentBuddy.class);
 
     private static Instrumentation instrumentation;
     private static File agentJarFile;
@@ -68,9 +68,7 @@ public class AgentBuddy {
     private static final Map<String, ClassLoader> adviceClassName2instrumentationClassLoader = new ConcurrentHashMap<>();
 
     public static void initialize(final String agentArguments, final Instrumentation instrumentation, final File agentJarFile) {
-        AgentBuddy.instrumentation = instrumentation;
         AgentBuddy.agentJarFile = agentJarFile;
-        LOGGER.info("玛卡巴卡");
         initInstrumentation(instrumentation, loadInstrumentations());
     }
 
