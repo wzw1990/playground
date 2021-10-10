@@ -1,6 +1,0 @@
-cc/ikey/playground/agentbuddy/AgentBuddy.class
-cc/ikey/playground/agentbuddy/util/DependencyInjectingServiceLoader.class
-cc/ikey/playground/agentbuddy/logging/AgentLoggerHandler.class
-cc/ikey/playground/agentbuddy/logging/AgentLogger$Level.class
-cc/ikey/playground/agentbuddy/logging/AgentLogger.class
-cc/ikey/playground/agentbuddy/classloader/PluginClassLoader.class
