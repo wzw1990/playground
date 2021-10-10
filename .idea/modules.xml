@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy-agent/agent-buddy-agent.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy-agent/agent-buddy-agent.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy-core/agent-buddy-core.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy-core/agent-buddy-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy-sdk/agent-buddy-sdk.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy-sdk/agent-buddy-sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-game/agent-core/agent-core.iml" filepath="$PROJECT_DIR$/agent-game/agent-core/agent-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-game/agent-game.iml" filepath="$PROJECT_DIR$/agent-game/agent-game.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-game/agent-test/agent-test.iml" filepath="$PROJECT_DIR$/agent-game/agent-test/agent-test.iml" />

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>agent-buddy-core</artifactId>
+    <artifactId>agent-buddy-sdk</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,14 +18,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>cc.ikey.playground</groupId>
-            <artifactId>agent-buddy-sdk</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm-tree</artifactId>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-dep</artifactId>
         </dependency>
     </dependencies>
-
 </project>

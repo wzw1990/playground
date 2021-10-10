@@ -12,6 +12,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="agent-buddy-core" />
-    <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.11.19" level="project" />
+    <orderEntry type="module" module-name="agent-buddy-sdk" />
+    <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy-dep:1.11.19" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-commons:9.2" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:9.2" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:9.2" level="project" />
   </component>
 </module>

@@ -1,3 +1,5 @@
+/Users/handsome/Workspaces/playground/agent-buddy/agent-buddy-core/src/main/java/cc/ikey/playground/agentbuddy/util/DependencyInjectingServiceLoader.java
+/Users/handsome/Workspaces/playground/agent-buddy/agent-buddy-core/src/main/java/cc/ikey/playground/agentbuddy/AgentBuddy.java
 /Users/handsome/Workspaces/playground/agent-buddy/agent-buddy-core/src/main/java/cc/ikey/playground/agentbuddy/classloader/PluginClassLoader.java
 /Users/handsome/Workspaces/playground/agent-buddy/agent-buddy-core/src/main/java/cc/ikey/playground/agentbuddy/logging/AgentLogger.java
 /Users/handsome/Workspaces/playground/agent-buddy/agent-buddy-core/src/main/java/cc/ikey/playground/agentbuddy/logging/AgentLoggerHandler.java
