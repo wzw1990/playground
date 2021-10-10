@@ -76,6 +76,10 @@
                                     <pattern>net.bytebuddy</pattern>
                                     <shadedPattern>cc.ikey.shade.net.bytebuddy</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>org.objectweb.asm</pattern>
+                                    <shadedPattern>cc.ikey.shade.org.objectweb.asm</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>

@@ -71,6 +71,7 @@ public class AgentBuddy {
         AgentBuddy.instrumentation = instrumentation;
         AgentBuddy.agentJarFile = agentJarFile;
         LOGGER.info("玛卡巴卡");
+        initInstrumentation(instrumentation, loadInstrumentations());
     }
 
     private static synchronized void initInstrumentation(Instrumentation instrumentation,
