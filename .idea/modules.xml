@@ -5,12 +5,15 @@
       <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy-agent/agent-buddy-agent.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy-agent/agent-buddy-agent.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy-core/agent-buddy-core.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy-core/agent-buddy-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy-plugins/agent-buddy-plugins.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy-plugins/agent-buddy-plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-buddy/agent-buddy-sdk/agent-buddy-sdk.iml" filepath="$PROJECT_DIR$/agent-buddy/agent-buddy-sdk/agent-buddy-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-app/agent-buddy-test/agent-buddy-test.iml" filepath="$PROJECT_DIR$/simple-app/agent-buddy-test/agent-buddy-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-game/agent-core/agent-core.iml" filepath="$PROJECT_DIR$/agent-game/agent-core/agent-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-game/agent-game.iml" filepath="$PROJECT_DIR$/agent-game/agent-game.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-game/agent-test/agent-test.iml" filepath="$PROJECT_DIR$/agent-game/agent-test/agent-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/agent-game/jdk-patch/jdk-patch.iml" filepath="$PROJECT_DIR$/agent-game/jdk-patch/jdk-patch.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/playground.iml" filepath="$PROJECT_DIR$/.idea/playground.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simple-app/simple-app.iml" filepath="$PROJECT_DIR$/simple-app/simple-app.iml" />
     </modules>
   </component>
 </project>

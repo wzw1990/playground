@@ -6,23 +6,34 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="agent-test" />
+        <module name="agent-buddy-test" />
         <module name="agent-buddy-agent" />
-        <module name="agent-core" />
         <module name="jdk-patch" />
         <module name="agent-buddy-sdk" />
         <module name="agent-buddy-core" />
+        <module name="agent-test" />
+        <module name="agent-core" />
+        <module name="agent-buddy-plugins" />
+        <module name="simple-app" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="agent-buddy" target="8" />
       <module name="agent-buddy-agent" target="8" />
       <module name="agent-buddy-core" target="8" />
+      <module name="agent-buddy-plugins" target="8" />
       <module name="agent-buddy-sdk" target="8" />
+      <module name="agent-buddy-test" target="8" />
       <module name="agent-core" target="8" />
       <module name="agent-game" target="8" />
       <module name="agent-test" target="8" />
       <module name="jdk-patch" target="8" />
+      <module name="simple-app" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="simple-app" options="-parameters" />
+    </option>
   </component>
 </project>

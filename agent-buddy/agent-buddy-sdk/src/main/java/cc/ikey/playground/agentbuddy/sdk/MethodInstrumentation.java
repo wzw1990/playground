@@ -87,7 +87,7 @@ import static net.bytebuddy.matcher.ElementMatchers.any;
  *     </li>
  * </ul>
  */
-public interface MethodInstrumentation {
+public abstract class MethodInstrumentation {
     /**
      * Pre-select candidates solely based on the class name for the slower {@link #getTypeMatcher()},
      * at the expense of potential false negative matches.
@@ -100,14 +100,14 @@ public interface MethodInstrumentation {
      * unless they are cached or already loaded.
      * </p>
      */
-    default ElementMatcher<? super NamedElement> getTypeMatcherPreFilter() {
+    public  ElementMatcher<? super NamedElement> getTypeMatcherPreFilter() {
         return any();
     }
 
     /**
      * Post filters classes that pass the {@link #getTypeMatcher()} by {@link ProtectionDomain}.
      */
-    default ElementMatcher.Junction<ProtectionDomain> getProtectionDomainPostFilter() {
+    public  ElementMatcher.Junction<ProtectionDomain> getProtectionDomainPostFilter() {
         return any();
     }
 
@@ -122,9 +122,9 @@ public interface MethodInstrumentation {
      *
      * @return the type matcher
      */
-    ElementMatcher<? super TypeDescription> getTypeMatcher();
+    public abstract ElementMatcher<? super TypeDescription> getTypeMatcher();
 
-    default ElementMatcher.Junction<ClassLoader> getClassLoaderMatcher() {
+    public  ElementMatcher.Junction<ClassLoader> getClassLoaderMatcher() {
         return any();
     }
 
@@ -134,7 +134,7 @@ public interface MethodInstrumentation {
      *
      * @return the method matcher
      */
-    ElementMatcher<? super MethodDescription> getMethodMatcher();
+    public abstract ElementMatcher<? super MethodDescription> getMethodMatcher();
 
     /**
      * Implementing the advice and instrumentation at the same class is <b>disallowed</b> and will throw a validation error when trying to do so.
@@ -149,14 +149,14 @@ public interface MethodInstrumentation {
      *
      * @return the name of the advice class corresponding this instrumentation
      */
-    default String getAdviceClassName() {
+    public  String getAdviceClassName() {
         return getClass().getName() + "$AdviceClass";
     }
 
     /**
      * Returns {@code true} if this instrumentation should be applied even when {@code instrument} is set to {@code false}.
      */
-    default boolean includeWhenInstrumentationIsDisabled() {
+    public  boolean includeWhenInstrumentationIsDisabled() {
         return false;
     }
 
@@ -169,13 +169,13 @@ public interface MethodInstrumentation {
      *
      * @return a name which groups several instrumentations into a logical group
      */
-    Collection<String> getInstrumentationGroupNames();
+    public abstract Collection<String> getInstrumentationGroupNames();
 
-    default Advice.OffsetMapping.Factory<?> getOffsetMapping() {
+    public  Advice.OffsetMapping.Factory<?> getOffsetMapping() {
         return null;
     }
 
-    default void onTypeMatch(TypeDescription typeDescription, ClassLoader classLoader, ProtectionDomain protectionDomain, Class<?> classBeingRedefined) {
+    public  void onTypeMatch(TypeDescription typeDescription, ClassLoader classLoader, ProtectionDomain protectionDomain, Class<?> classBeingRedefined) {
     }
 
 }

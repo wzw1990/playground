@@ -12,6 +12,7 @@
         <module>agent-buddy-core</module>
         <module>agent-buddy-agent</module>
         <module>agent-buddy-sdk</module>
+        <module>agent-buddy-plugins</module>
     </modules>
 
     <properties>

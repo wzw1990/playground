@@ -5,6 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/agent-game/pom.xml" />
         <option value="$PROJECT_DIR$/agent-buddy/pom.xml" />
+        <option value="$PROJECT_DIR$/simple-app/pom.xml" />
+        <option value="$PROJECT_DIR$/simple-app/agent-buddy-test/pom.xml" />
       </list>
     </option>
   </component>

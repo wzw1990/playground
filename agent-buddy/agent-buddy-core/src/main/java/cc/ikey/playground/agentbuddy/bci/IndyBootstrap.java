@@ -173,7 +173,7 @@ public class IndyBootstrap {
      * class is injected into the plugin class loader, then loaded from that class loader and used as the lookup class
      * to link the instrumented call site to the advice method.
      */
-    public static final String LOOKUP_EXPOSER_CLASS_NAME = "co.elastic.apm.agent.bci.classloading.LookupExposer";
+    public static final String LOOKUP_EXPOSER_CLASS_NAME = "cc.ikey.playground.agentbuddy.classloader.LookupExposer";
 
     /**
      * The root package name prefix that all embedded plugins classes should start with
