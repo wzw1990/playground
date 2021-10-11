@@ -87,29 +87,7 @@ import static net.bytebuddy.matcher.ElementMatchers.any;
  *     </li>
  * </ul>
  */
-public abstract class MethodInstrumentation {
-    /**
-     * Pre-select candidates solely based on the class name for the slower {@link #getTypeMatcher()},
-     * at the expense of potential false negative matches.
-     * <p>
-     * Any matcher which does not only take the class name into account,
-     * causes the class' bytecode to be parsed.
-     * If the matcher needs information from other classes than the one currently being loaded,
-     * like it's super class,
-     * those classes have to be loaded from the file system,
-     * unless they are cached or already loaded.
-     * </p>
-     */
-    public  ElementMatcher<? super NamedElement> getTypeMatcherPreFilter() {
-        return any();
-    }
-
-    /**
-     * Post filters classes that pass the {@link #getTypeMatcher()} by {@link ProtectionDomain}.
-     */
-    public  ElementMatcher.Junction<ProtectionDomain> getProtectionDomainPostFilter() {
-        return any();
-    }
+public interface MethodInstrumentation {
 
     /**
      * The type matcher selects types which should be instrumented by this advice
@@ -122,11 +100,7 @@ public abstract class MethodInstrumentation {
      *
      * @return the type matcher
      */
-    public abstract ElementMatcher<? super TypeDescription> getTypeMatcher();
-
-    public  ElementMatcher.Junction<ClassLoader> getClassLoaderMatcher() {
-        return any();
-    }
+    ElementMatcher<? super TypeDescription> getTypeMatcher();
 
     /**
      * The method matcher selects methods of types matching {@link #getTypeMatcher()},
@@ -134,7 +108,18 @@ public abstract class MethodInstrumentation {
      *
      * @return the method matcher
      */
-    public abstract ElementMatcher<? super MethodDescription> getMethodMatcher();
+    ElementMatcher<? super MethodDescription> getMethodMatcher();
+
+    /**
+     * Post filters classes that pass the {@link #getTypeMatcher()} by {@link ProtectionDomain}.
+     */
+    default ElementMatcher.Junction<ProtectionDomain> getProtectionDomainPostFilter() {
+        return any();
+    }
+
+    default ElementMatcher.Junction<ClassLoader> getClassLoaderMatcher() {
+        return any();
+    }
 
     /**
      * Implementing the advice and instrumentation at the same class is <b>disallowed</b> and will throw a validation error when trying to do so.
@@ -149,33 +134,11 @@ public abstract class MethodInstrumentation {
      *
      * @return the name of the advice class corresponding this instrumentation
      */
-    public  String getAdviceClassName() {
+    default String getAdviceClassName() {
         return getClass().getName() + "$AdviceClass";
     }
 
-    /**
-     * Returns {@code true} if this instrumentation should be applied even when {@code instrument} is set to {@code false}.
-     */
-    public  boolean includeWhenInstrumentationIsDisabled() {
-        return false;
-    }
-
-    /**
-     * Returns a name which groups several instrumentations into a logical group.
-     * <p>
-     * This name is used in {@code disabled_instrumentations} to exclude a logical group
-     * of instrumentations.
-     * </p>
-     *
-     * @return a name which groups several instrumentations into a logical group
-     */
-    public abstract Collection<String> getInstrumentationGroupNames();
-
-    public  Advice.OffsetMapping.Factory<?> getOffsetMapping() {
-        return null;
-    }
-
-    public  void onTypeMatch(TypeDescription typeDescription, ClassLoader classLoader, ProtectionDomain protectionDomain, Class<?> classBeingRedefined) {
+    default void onTypeMatch(TypeDescription typeDescription, ClassLoader classLoader, ProtectionDomain protectionDomain, Class<?> classBeingRedefined) {
     }
 
 }

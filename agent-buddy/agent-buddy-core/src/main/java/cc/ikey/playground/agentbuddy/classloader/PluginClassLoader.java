@@ -1,5 +1,7 @@
 package cc.ikey.playground.agentbuddy.classloader;
 
+import cc.ikey.playground.agentbuddy.sdk.MethodInstrumentation;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -20,10 +22,9 @@ public class PluginClassLoader extends URLClassLoader {
     public PluginClassLoader(File pluginJar, ClassLoader agentClassLoader) throws IOException {
         super(new URL[]{pluginJar.toURI().toURL()}, agentClassLoader);
         classNames = Collections.unmodifiableList(scanForClasses(pluginJar));
-        //TODO 判断是否包含SDK
-//        if (classNames.contains(ElasticApmInstrumentation.class.getName())) {
-//            throw new IllegalStateException("The plugin %s contains the plugin SDK. Please make sure the scope for the dependency apm-agent-plugin-sdk is set to provided.");
-//        }
+        if (classNames.contains(MethodInstrumentation.class.getName())) {
+            throw new IllegalStateException("The plugin %s contains the plugin SDK. Please make sure the scope for the dependency apm-agent-plugin-sdk is set to provided.");
+        }
     }
 
     private List<String> scanForClasses(File pluginJar) throws IOException {

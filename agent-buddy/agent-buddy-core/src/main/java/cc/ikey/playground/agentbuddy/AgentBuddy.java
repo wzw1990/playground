@@ -61,12 +61,13 @@ public class AgentBuddy {
     private static File agentJarFile;
     private static ResettableClassFileTransformer resettableClassFileTransformer;
     /**
-     * A mapping from advice class name to the class loader that loaded the corresponding instrumentation.
-     * We need this in order to locate the advice class file. This implies that the advice class needs to be collocated
-     * with the corresponding instrumentation class.
+     * Advice Class Name与{@link PluginClassLoader}的映射关系，用于后续的插件类加载
      */
     private static final Map<String, ClassLoader> adviceClassName2instrumentationClassLoader = new ConcurrentHashMap<>();
 
+    /**
+     * 初始化入口，由AgentMain反射调用
+     */
     public static void initialize(final String agentArguments, final Instrumentation instrumentation, final File agentJarFile) {
         AgentBuddy.agentJarFile = agentJarFile;
         initInstrumentation(instrumentation, loadInstrumentations());
@@ -75,7 +76,7 @@ public class AgentBuddy {
     private static synchronized void initInstrumentation(Instrumentation instrumentation,
                                                          Iterable<MethodInstrumentation> instrumentations) {
         if (AgentBuddy.instrumentation != null) {
-            LOGGER.warning("Instrumentation has already been initialized");
+            LOGGER.warning("Instrumentation已经被初始化");
             return;
         }
         for (MethodInstrumentation apmInstrumentation : instrumentations) {
@@ -102,13 +103,13 @@ public class AgentBuddy {
             numberOfAdvices++;
             agentBuilder = applyAdvice(agentBuilder, advice, advice.getTypeMatcher());
         }
-        LOGGER.debug("Applied {} advices", numberOfAdvices);
+        LOGGER.debug("应用了 {} Advices", numberOfAdvices);
         return agentBuilder;
     }
 
     private static AgentBuilder applyAdvice(final AgentBuilder agentBuilder,
                                             final MethodInstrumentation instrumentation, final ElementMatcher<? super TypeDescription> typeMatcher) {
-        LOGGER.debug("Applying instrumentation {}", instrumentation.getClass().getName());
+        LOGGER.debug("应用 instrumentation {}", instrumentation.getClass().getName());
         final ElementMatcher.Junction<ProtectionDomain> versionPostFilter = instrumentation.getProtectionDomainPostFilter();
         final ElementMatcher<? super MethodDescription> methodMatcher = new ElementMatcher.Junction.Conjunction<>(instrumentation.getMethodMatcher(), not(isAbstract()));
         return agentBuilder
@@ -148,10 +149,6 @@ public class AgentBuddy {
                 .with(new AssignToPostProcessorFactory())
                 .bind(new SimpleMethodSignatureOffsetMappingFactory())
                 .bind(new AnnotationValueOffsetMappingFactory());
-        Advice.OffsetMapping.Factory<?> offsetMapping = instrumentation.getOffsetMapping();
-        if (offsetMapping != null) {
-            withCustomMapping = withCustomMapping.bind(offsetMapping);
-        }
         withCustomMapping = withCustomMapping.bootstrap(IndyBootstrap.getIndyBootstrapMethod());
         return new AgentBuilder.Transformer.ForAdvice(withCustomMapping)
                 .advice((ElementMatcher<MethodDescription>) target -> {
@@ -330,17 +327,17 @@ public class AgentBuddy {
 
     private static Collection<? extends ClassLoader> createExternalPluginClassLoaders(String pluginsDirString) {
         if (pluginsDirString == null) {
-            LOGGER.debug("No plugins dir");
+            LOGGER.debug("没有设置Plugin目录");
             return Collections.emptyList();
         }
         File pluginsDir = new File(pluginsDirString);
         if (!pluginsDir.exists()) {
-            LOGGER.debug("Plugins dir does not exist: {}", pluginsDirString);
+            LOGGER.debug("Plugin目录不存在: {}", pluginsDirString);
             return Collections.emptyList();
         }
         File[] pluginJars = pluginsDir.listFiles((dir, name) -> name.endsWith(".jar"));
         if (pluginJars == null) {
-            LOGGER.info("Invalid plugins dir {}", pluginsDirString);
+            LOGGER.info("无效的Plugin目录 {}", pluginsDirString);
             return Collections.emptyList();
         }
         List<ClassLoader> result = new ArrayList<>(pluginJars.length);
@@ -350,7 +347,7 @@ public class AgentBuddy {
             } catch (IOException e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            LOGGER.info("Loading plugin {}", pluginJar.getName());
+            LOGGER.info("加载Plugin {}", pluginJar.getName());
         }
         return result;
     }

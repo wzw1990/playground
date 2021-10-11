@@ -32,7 +32,7 @@ import java.util.*;
 
 public class DependencyInjectingServiceLoader<T> {
 
-    private static AgentLogger LOGGER = AgentLogger.getLogger(DependencyInjectingServiceLoader.class);
+    private static final AgentLogger LOGGER = AgentLogger.getLogger(DependencyInjectingServiceLoader.class);
     private final Class<T> clazz;
     private final Object[] constructorArguments;
     private final Class<?>[] constructorTypes;

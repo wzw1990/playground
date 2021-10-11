@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+/**
+ * 该类的作用请参考{@link cc.ikey.playground.agentbuddy.bci.IndyBootstrap}的注释
+ */
 public class AgentClassLoader extends URLClassLoader {
 
     static {

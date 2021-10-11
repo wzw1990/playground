@@ -1,21 +1,3 @@
-/*
- * Licensed to Elasticsearch B.V. under one or more contributor
- * license agreements. See the NOTICE file distributed with
- * this work for additional information regarding copyright
- * ownership. Elasticsearch B.V. licenses this file to you under
- * the Apache License, Version 2.0 (the "License"); you may
- * not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 package cc.ikey.playground.agentbuddy;
 
 import cc.ikey.playground.agentbuddy.logging.AgentLogger;
@@ -29,9 +11,17 @@ import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 
+/**
+ * <p>
+ * 主要代码从https://github.com/elastic/apm-agent-java项目而来
+ * </p>
+ * <p>
+ * 本项目较原项目删减了大部分兼容性代码，例如兼容OSGi规范、兼容低于Java7以下版本字节码、兼容JDK9及更新版本的JDK等等。
+ * </p>
+ */
 public class AgentMain {
-    private static AgentLogger LOGGER = AgentLogger.getLogger(AgentMain.class);
-    private static final String ATTACH_SIGNAL_KEY = "AgentBuddyAgent.attached";
+    private static final AgentLogger LOGGER = AgentLogger.getLogger(AgentMain.class);
+    private static final String AGENT_ATTACH_KEY = "AgentBuddyAgent.attached";
 
     public static void agentmain(String args, Instrumentation inst) {
         entry(args, inst);
@@ -42,23 +32,27 @@ public class AgentMain {
     }
 
     private synchronized static void entry(String args, Instrumentation inst) {
-        if (Boolean.getBoolean(ATTACH_SIGNAL_KEY)) {
+        if (Boolean.getBoolean(AGENT_ATTACH_KEY)) {
             return;
         }
         LOGGER.info("初始化Agent Buddy!");
         try {
+            // 获取Agent Jar，以便后续进行类加载
             File agentJar = getAgentJarFile();
             URLClassLoader agentClassLoader = new AgentClassLoader(agentJar, getAgentClassLoaderParent());
             Class.forName("cc.ikey.playground.agentbuddy.AgentBuddy", true, agentClassLoader)
                     .getMethod("initialize", String.class, Instrumentation.class, File.class)
                     .invoke(null, args, inst, agentJar);
-            System.setProperty(ATTACH_SIGNAL_KEY, Boolean.TRUE.toString());
+            System.setProperty(AGENT_ATTACH_KEY, Boolean.TRUE.toString());
             LOGGER.info("初始化Agent Buddy完毕!");
         } catch (Throwable e) {
             LOGGER.error("初始化Agent Buddy异常", e);
         }
     }
 
+    /**
+     * 获取AgentClassLoader父级ClassLoader，JDK9及更新版本对于这块有改动，详见{@see <a href="https://www.oracle.com/java/technologies/javase/9-relnotes.html"/>}
+     */
     private static ClassLoader getAgentClassLoaderParent() {
         try {
             // JDK9及更新版本
@@ -73,15 +67,15 @@ public class AgentMain {
         ProtectionDomain protectionDomain = AgentMain.class.getProtectionDomain();
         CodeSource codeSource = protectionDomain.getCodeSource();
         if (codeSource == null) {
-            throw new IllegalStateException(String.format("不能获取AgentBuddy.jar位置, protection domain = %s", protectionDomain));
+            throw new IllegalStateException(String.format("无法获取agent jar位置, protection domain = %s", protectionDomain));
         }
         URL location = codeSource.getLocation();
         if (location == null) {
-            throw new IllegalStateException(String.format("不能获取AgentBuddy.jar位置, code source = %s", codeSource));
+            throw new IllegalStateException(String.format("无法获取agent jar位置, code source = %s", codeSource));
         }
         final File agentJar = new File(location.toURI());
         if (!agentJar.getName().endsWith(".jar")) {
-            throw new IllegalStateException("AgentBuddy似乎不是一个jar文件: " + agentJar);
+            throw new IllegalStateException("似乎不是一个jar文件: " + agentJar);
         }
         return agentJar.getAbsoluteFile();
     }
